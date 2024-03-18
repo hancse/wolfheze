@@ -5,7 +5,7 @@ Created on Mon Mar 18 9:21:53 2024
 @authors: TrungNguyen, Maarten van den Berg
 
 """
-from train_model_with_DHW_heating_data import load_excel_or_csv_data, preprocess_training
+#from train_model_with_DHW_heating_data import load_excel_or_csv_data, preprocess_training
 from LSTM_model_struct import LSTM
 import torch
 from read_data import data_preprocess
@@ -77,7 +77,7 @@ def train(filename, seq_length, num_epochs, learning_rate,
 if __name__ == "__main__":
     # data file name
     # filename = 'Heavy_weight.txt'
-    filename = 'Data_DHW_heating_Trung/Heat_and_DHW_profile.csv'
+    filename = 'Heat_and_DHW_profile.csv'
 
     seq_length = 12
 
