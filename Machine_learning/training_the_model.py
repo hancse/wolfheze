@@ -8,6 +8,7 @@ Created on Mon Mar 18 9:21:53 2024
 from train_model_with_DHW_heating_data import load_excel_or_csv_data, preprocess_training
 from LSTM_model_struct import LSTM
 import torch
+from read_data import data_preprocess
 
 
 # import torch.nn as nn
@@ -41,8 +42,9 @@ def train(filename, seq_length, num_epochs, learning_rate,
         lstm:           A train lstm models with the structure define as input.
     """
 
-    np_data = load_excel_or_csv_data(filename)
-    dataX, dataY, trainX, trainY, testX, testY = preprocess_training(np_data, seq_length)
+    #np_data = load_excel_or_csv_data(filename)
+    #dataX, dataY, trainX, trainY, testX, testY = preprocess_training(np_data, seq_length)
+    dataX, dataY, trainX, trainY, testX, testY = data_preprocess(filename, seq_length)
 
     lstm = LSTM(num_classes, input_size, hidden_size, num_layers, bidirectional, seq_length)
 

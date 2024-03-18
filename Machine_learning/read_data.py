@@ -100,7 +100,7 @@ def data_preprocess(filename, seq_length):
 
 
 if __name__ == "__main__":
-    filename = 'Heavy_weight.txt'
+    filename = 'Heat_and_DHW_profile.csv'
     seq_length = 12
 
     dataX, dataY, trainX, trainY, testX, testY = data_preprocess(filename, seq_length)
