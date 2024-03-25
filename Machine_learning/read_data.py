@@ -16,7 +16,7 @@ from joblib import dump
 
 # seq_length = 12
 
-def data_preprocess(filename, seq_length):
+def data_preprocess(filename, colums_for_data,  seq_length):
     """ Prepare data for the model with the following steps:
 
     - Read data from the data file.
@@ -30,6 +30,7 @@ def data_preprocess(filename, seq_length):
     Args:
 
         filename:     name of the data set.
+        data_columns: Array of the columns that contains the data
         seq_length:   the number of pass input points which needed
                       for predicting the future value.
 
@@ -49,7 +50,7 @@ def data_preprocess(filename, seq_length):
 
     df = pd.read_csv(data_dir / file)
     # c_data=data[['Q']]
-    df = df[['Q_house_profile', 'Toutdoor','hod'] ] # SP
+    df = df[colums_for_data ] # SP
     df.head(10)
 
     # Define training inputs and prediction value.

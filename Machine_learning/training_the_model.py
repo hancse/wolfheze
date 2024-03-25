@@ -16,7 +16,7 @@ from read_data import data_preprocess
 
 # PATH = "heat_demand.pt"
 
-def train(filename, seq_length, num_epochs, learning_rate,
+def train(filename, data_columns, seq_length, num_epochs, learning_rate,
           input_size, hidden_size, num_layers, num_classes, bidirectional, PATH):
     """
     Function to train and save the model for prediction.
@@ -24,6 +24,7 @@ def train(filename, seq_length, num_epochs, learning_rate,
      Args:
 
         filename:       name of the data set.
+        data_columns:   Array of the columns that contains the data
         seq_length:     the number of pass input points which needed
                             for predicting the future value.
 
@@ -44,7 +45,7 @@ def train(filename, seq_length, num_epochs, learning_rate,
 
     #np_data = load_excel_or_csv_data(filename)
     #dataX, dataY, trainX, trainY, testX, testY = preprocess_training(np_data, seq_length)
-    dataX, dataY, trainX, trainY, testX, testY = data_preprocess(filename, seq_length)
+    dataX, dataY, trainX, trainY, testX, testY = data_preprocess(filename, data_columns, seq_length)
 
     lstm = LSTM(num_classes, input_size, hidden_size, num_layers, bidirectional, seq_length)
 
@@ -78,6 +79,7 @@ if __name__ == "__main__":
     # data file name
     # filename = 'Heavy_weight.txt'
     filename = 'Heat_and_DHW_profile.csv'
+    data_columns = ['Q_house_profile', 'Toutdoor', 'hod']
 
     seq_length = 12
 
@@ -95,7 +97,7 @@ if __name__ == "__main__":
 
     PATH = "heat_and_DHW_demand.pt"
 
-    lstm = train(filename, seq_length, num_epochs, learning_rate,
+    lstm = train(filename, data_columns, seq_length, num_epochs, learning_rate,
                  input_size, hidden_size, num_layers, num_classes, bidirectional, PATH)
     print(lstm)
 

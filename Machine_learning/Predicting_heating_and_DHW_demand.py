@@ -25,11 +25,12 @@ def main():
 
     # filename = 'Heavy_weight.txt'
     filename = 'Heat_and_DHW_profile.csv'
+    data_columns = ['Q_house_profile', 'Toutdoor','hod']
     seq_length = 12
 
     # Prepare the data.
     #np_data = load_excel_or_csv_data(filename)
-    dataX, dataY, trainX, trainY, testX, testY = data_preprocess(filename, seq_length)
+    dataX, dataY, trainX, trainY, testX, testY = data_preprocess(filename, data_columns, seq_length)
 
     Xtsq = testX.clone().detach()
 
