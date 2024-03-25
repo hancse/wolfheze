@@ -45,12 +45,20 @@ def data_preprocess(filename, colums_for_data,  seq_length):
 
     """
 
-    data_dir = Path.cwd() / 'Data_DHW_heating_Trung'
     file = filename
+    path = Path(file)
+    parent_directory = path.parts[0]
 
-    df = pd.read_csv(data_dir / file)
+
+    if file.endswith('.csv'):
+        df = pd.read_csv(file)
+    elif file.endswith('.xlsx'):
+        df = pd.read_excel(file)
+    else:
+        raise ValueError("Unsupported file type")
+
     # c_data=data[['Q']]
-    df = df[colums_for_data ] # SP
+    df = df[colums_for_data]
     df.head(10)
 
     # Define training inputs and prediction value.
@@ -67,8 +75,8 @@ def data_preprocess(filename, colums_for_data,  seq_length):
     training_data_X = scaler_X.transform(training_set_X)
     training_data_Y = scaler_Y.transform(training_set_Y)
     # save Normalize parameters
-    dump(scaler_X, 'sc_X.bin', compress=True)
-    dump(scaler_Y, 'sc_Y.bin', compress=True)
+    dump(scaler_X, Path(parent_directory) / 'sc_X.bin', compress=True)
+    dump(scaler_Y, Path(parent_directory) / 'sc_Y.bin', compress=True)
 
     # Make a time lag between tranning and prediction.
     x = []

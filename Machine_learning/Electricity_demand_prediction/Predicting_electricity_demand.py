@@ -6,8 +6,8 @@ Created on Tue Apr 20 16:43:59 2021
 """
 
 import torch
-from LSTM_model_struct import LSTM
-from read_data import data_preprocess
+from Machine_learning.LSTM_model_struct import LSTM
+from Machine_learning.read_data import data_preprocess
 import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('QTAgg')  # Set the backend to QTAgg
@@ -24,8 +24,8 @@ def main():
     '''
 
     # filename = 'Heavy_weight.txt'
-    filename = 'Heat_and_DHW_profile.csv'
-    data_columns = ['Q_house_profile', 'Toutdoor','hod']
+    filename = 'Data_electricity/Hourly_Active_power_04_11_23.xlsx'
+    data_columns = ['W.mean_value', 'hod']
     seq_length = 12
 
     # Prepare the data.
@@ -35,14 +35,14 @@ def main():
     Xtsq = testX.clone().detach()
 
     # Define and load the model.
-    input_size = 3
+    input_size = 2
     hidden_size = 20
     num_layers = 1
     num_classes = 1
     bidirectional = True
 
     # name of the save model
-    PATH = "heat_and_DHW_demand.pt"
+    PATH = "electricity_demand.pt"
 
     # load the model.
     model = LSTM(num_classes, input_size, hidden_size, num_layers, bidirectional, seq_length)
@@ -53,7 +53,7 @@ def main():
     predict_data = predict_test.data.numpy()
 
     # Transform the data to its original form.
-    sc_Y = load('sc_Y.bin')
+    sc_Y = load('../Heating_demand_prediction/sc_Y.bin')
     predict = sc_Y.inverse_transform(predict_data)
     predict[predict < 0] = 0
     Y_val = testY.data.numpy()
@@ -69,7 +69,7 @@ def main():
     axs[0].title.set_text('Zoom_in')
     axs[1].title.set_text('Heat demand')
     # plt.figure(figsize=(17,6)) #plotting
-    axs[0].set_xlim([0, 2000])
+    #axs[0].set_xlim([0, 2000])
     # axs[1].set_xlim([500,1000])
     # plt.xlim([0,0])
     # plt.plot(dataY_plot[:,0],label='measured')

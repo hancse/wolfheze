@@ -6,9 +6,9 @@ Created on Mon Mar 18 9:21:53 2024
 
 """
 #from train_model_with_DHW_heating_data import load_excel_or_csv_data, preprocess_training
-from LSTM_model_struct import LSTM
+from Machine_learning.LSTM_model_struct import LSTM
 import torch
-from read_data import data_preprocess
+from Machine_learning.read_data import data_preprocess
 
 
 # import torch.nn as nn
@@ -78,8 +78,8 @@ def train(filename, data_columns, seq_length, num_epochs, learning_rate,
 if __name__ == "__main__":
     # data file name
     # filename = 'Heavy_weight.txt'
-    filename = 'Heat_and_DHW_profile.csv'
-    data_columns = ['Q_house_profile', 'Toutdoor', 'hod']
+    filename = 'Data_DHW_heating_Trung/Heat_and_DHW_profile.csv'
+    data_columns = ['Qheat_profile', 'Toutdoor', 'hod']
 
     seq_length = 12
 
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     num_classes = 1
     bidirectional = True
 
-    PATH = "heat_and_DHW_demand.pt"
+    PATH = "heat_demand.pt"
 
     lstm = train(filename, data_columns, seq_length, num_epochs, learning_rate,
                  input_size, hidden_size, num_layers, num_classes, bidirectional, PATH)
