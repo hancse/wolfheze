@@ -75,8 +75,8 @@ def data_preprocess(filename, colums_for_data,  seq_length):
     training_data_X = scaler_X.transform(training_set_X)
     training_data_Y = scaler_Y.transform(training_set_Y)
     # save Normalize parameters
-    dump(scaler_X, Path(parent_directory) / 'sc_X.bin', compress=True)
-    dump(scaler_Y, Path(parent_directory) / 'sc_Y.bin', compress=True)
+    dump(scaler_X, 'sc_X.bin', compress=True)
+    dump(scaler_Y, 'sc_Y.bin', compress=True)
 
     # Make a time lag between tranning and prediction.
     x = []
