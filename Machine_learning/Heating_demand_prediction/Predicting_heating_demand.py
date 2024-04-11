@@ -36,7 +36,7 @@ def main():
 
     # Define and load the model.
     input_size = 3
-    hidden_size = 20
+    hidden_size = 50
     num_layers = 1
     num_classes = 1
     bidirectional = True
@@ -47,6 +47,7 @@ def main():
     # load the model.
     model = LSTM(num_classes, input_size, hidden_size, num_layers, bidirectional, seq_length)
     model.load_state_dict(torch.load(PATH))
+    model.eval()
 
     # call prediction function
     predict_test = model(Xtsq)

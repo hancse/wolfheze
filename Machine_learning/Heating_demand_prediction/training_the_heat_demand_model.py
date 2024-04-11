@@ -48,6 +48,7 @@ def train(filename, data_columns, seq_length, num_epochs, learning_rate,
     dataX, dataY, trainX, trainY, testX, testY = data_preprocess(filename, data_columns, seq_length)
 
     lstm = LSTM(num_classes, input_size, hidden_size, num_layers, bidirectional, seq_length)
+    lstm.train()
 
     criterion = torch.nn.MSELoss()  # mean-squared error for regression
     optimizer = torch.optim.Adam(lstm.parameters(), lr=learning_rate)
@@ -86,11 +87,11 @@ if __name__ == "__main__":
     # number of training cycle.
     num_epochs = 2000
     # learning rate
-    learning_rate = 0.01
+    learning_rate = 0.1
     # Train the model
 
     input_size = 3
-    hidden_size = 20
+    hidden_size = 50
     num_layers = 1
     num_classes = 1
     bidirectional = True

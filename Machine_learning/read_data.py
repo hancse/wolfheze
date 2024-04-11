@@ -107,12 +107,51 @@ def data_preprocess(filename, colums_for_data,  seq_length):
 
     return dataX, dataY, trainX, trainY, testX, testY
 
+def preprocess_use_model(filename, colums_for_data,  num_points):
+    """
+
+    Args:
+
+
+    Returns:
+
+
+    """
+
+    file = filename
+    path = Path(file)
+    parent_directory = path.parts[0]
+
+    if file.endswith('.csv'):
+        df = pd.read_csv(file)
+    elif file.endswith('.xlsx'):
+        df = pd.read_excel(file)
+    else:
+        raise ValueError("Unsupported file type")
+
+    # c_data=data[['Q']]
+    df = df[colums_for_data]
+
+    # Calculate the maximum valid starting index
+    max_start_index = len(df) - num_points - 7000
+
+    # Choose a random starting point
+    start_index = np.random.randint(0, max_start_index + 1)
+
+    # Extract the sequence of 12 timepoints starting from the chosen index
+    df_sequence = df.iloc[start_index:start_index + num_points]
+    input_sequence = df_sequence
+    output_sequence = df_sequence.iloc[:, 0]
+    total_output_sequence = df.iloc[start_index:start_index + num_points + 24, 0]
+    return input_sequence, output_sequence, total_output_sequence
+
 
 if __name__ == "__main__":
-    filename = 'Heat_and_DHW_profile.csv'
-    seq_length = 12
+    filename = 'Heating_demand_prediction/Data_DHW_heating_Trung/Heat_and_DHW_profile.csv'
+    colums_for_data = ['Qheat_profile', 'Toutdoor', 'hod']
+    seq_length = 16
 
-    dataX, dataY, trainX, trainY, testX, testY = data_preprocess(filename, seq_length)
+    a, b = preprocess_use_model(filename, colums_for_data, seq_length)
 
-    plt.plot(dataY)
+    plt.plot(a)
 
